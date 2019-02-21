@@ -61,16 +61,15 @@ class PLA(object):
                     wrong_samples.append(-tmp)
             
             if self.log:
+                # 打印最后一条日志（loss=0）
+                if not wrong_samples:
+                    print('iter_count: {}\tloss: 0.0'.format(iter_count))
+                    break
                 # 每迭代50次打印一次训练日志
                 if iter_count % self.log_step == 0 and wrong_samples:
                     loss = np.sum(wrong_samples)
                     print('iter_count: {}\tloss: {:.4f}'.format(iter_count, loss))
-                # 打印最后一条日志（loss=0）
-                if not wrong_samples:
-                    print('iter_count: {}\tloss: 0.0'.format(iter_count))
-            # 如果wrong_samples为空，则说明所有样本都被正确分类，训练结束
-            if not wrong_samples:
-                break
+                
             iter_count += 1
         print('training finished!')
             
