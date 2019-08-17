@@ -59,12 +59,13 @@ class PLA(object):
                     self.w += self.lr * y * x
                     self.b += self.lr * y
                     wrong_samples.append(-tmp)
+
+            # 全部分类正确，停止训练
+            if not wrong_samples:
+                print('iter_count: {}\tloss: 0.0'.format(iter_count))
+                break
             
             if self.log:
-                # 打印最后一条日志（loss=0）
-                if not wrong_samples:
-                    print('iter_count: {}\tloss: 0.0'.format(iter_count))
-                    break
                 # 每迭代50次打印一次训练日志
                 if iter_count % self.log_step == 0 and wrong_samples:
                     loss = np.sum(wrong_samples)
