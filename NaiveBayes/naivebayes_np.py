@@ -1,6 +1,6 @@
 # coding: utf-8
 import numpy as np
-
+import pandas as pd
 
 class NaiveBayes(object):
     def __init__(self, X, Y):
@@ -69,13 +69,11 @@ class NaiveBayes(object):
 
 
 if __name__ == '__main__':
-    train_datas = np.array([
-        [1, 'S', -1], [1, 'M', -1], [1, 'M', 1], [1, 'S', 1], [1, 'S', -1],
-        [2, 'S', -1], [2, 'M', -1], [2, 'M', 1], [2, 'L', 1], [2, 'L', 1],
-        [3, 'L', 1], [3, 'M', 1], [3, 'M', 1], [3, 'L', 1], [3, 'L', -1]
-    ])
-    X = train_datas[:, :2]
-    Y = train_datas[:, -1]
+    # load data
+    df = pd.read_csv('datas/data4_1.csv')
+    # transform to numpy array
+    X = df[['X1', 'X2']].values
+    Y = df['Y'].values
 
     # 训练
     model = NaiveBayes(X, Y)
